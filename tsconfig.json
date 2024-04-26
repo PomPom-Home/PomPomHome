@@ -19,7 +19,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "esModuleInterop": true, // JS의 ESM 방식과 node,js의 Commonjs 방식을 호환
+    "esModuleInterop": true, // JS의 ESM 방식과 node.js의 Commonjs 방식을 호환
     "types": ["vitest/globals"]
   },
   "include": ["src", "setupTests.ts"],

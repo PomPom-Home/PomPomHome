@@ -1,5 +1,3 @@
-// App.spec.jsx
-import { describe, it, afterEach, expect } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // toBeIntheDocument 등 not a function뜨면 jest-dom import하면 사용 가능함...

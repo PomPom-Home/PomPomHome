@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from '../styles/GlobalStyles';
 import { theme } from '../styles/Theme';
-import { BrowserRouter } from './RouterProvider';
+import BrowserRouter from './RouterProvider';
 
 function App() {
   return (

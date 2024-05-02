@@ -45,8 +45,10 @@
     "lint-staged": "^15.2.2",
     "msg": "^1.0.0",
     "prettier": "^3.2.5",
+    "react-router-dom": "^6.23.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
+    "vite-plugin-svgr": "^4.2.0",
     "vitest": "^1.4.0"
   }
 }

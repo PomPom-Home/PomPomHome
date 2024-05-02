@@ -20,8 +20,14 @@
     "noFallthroughCasesInSwitch": true,
 
     "esModuleInterop": true, // JS의 ESM 방식과 node.js의 Commonjs 방식을 호환
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "vite-plugin-svgr/client"],
+
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["src/assets/*"],
+      "@shared/*": ["src/shared/*"]
+    }
   },
-  "include": ["src", "setupTests.ts"],
+  "include": ["src", "setupTests.ts", "svg.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

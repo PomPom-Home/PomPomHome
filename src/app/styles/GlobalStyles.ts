@@ -14,8 +14,10 @@ const GlobalStyles = createGlobalStyle`
     margin:0;
     padding:0;
     font-family: 'Noto Sans KR', sans-serif;
-    background-color: ${props => props.theme.bgColor};
-    color: ${props => props.theme.textColor}
+    //background-color: ${props => props.theme.bgColor};
+    color: ${props => props.theme.textColor};
+    background-image: url(${props => props.theme.bgImage});
+    background-size: cover;
   }
 `;
 

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import ModalPortal from '@shared/ui/ModalPortal';
 import SettingLayout from './SettingLayout';
 import React, { useEffect, useRef, useState } from 'react';
 
 import SettingIcon from '@assets/icon/settingIcon.svg?react'; // svg import 시 ?react 필수
 import CloseIcon from '@assets/icon/closeIcon.svg?react'; // svg import 시 ?react 필수
+import Modal from '@shared/ui/Modal';
 
 type WidgetWrapType = {
   height: string;
@@ -37,11 +37,11 @@ const WidgetLayout: React.FC<WidgetLayoutProps> = ({ children, height }) => {
         <CloseButton />
       </Header>
       {showSetting && (
-        <ModalPortal>
+        <Modal onClose={toggleSetting}>
           <SettingLayout handleClose={toggleSetting}>
             {children[1]}
           </SettingLayout>
-        </ModalPortal>
+        </Modal>
       )}
     </Wrapper>
   );

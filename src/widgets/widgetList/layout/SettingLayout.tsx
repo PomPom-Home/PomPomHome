@@ -10,31 +10,16 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({
   handleClose,
 }) => {
   return (
-    <Wrapper>
-      <Container>
-        <Header>
-          <XButton onClick={handleClose} />
-        </Header>
-        <Content>{children}</Content>
-      </Container>
-    </Wrapper>
+    <Container>
+      <Header>
+        <XButton onClick={handleClose} />
+      </Header>
+      <Content>{children}</Content>
+    </Container>
   );
 };
 
 export default SettingLayout;
-
-// 화면 전체 크기 덮는 wrap
-const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.15);
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
 
 // 자식 크기에 맞춰져야 하므로, Container에 따로 width, heignt 지정하면 안된다.
 const Container = styled.div`

@@ -21,7 +21,8 @@ const SiteLinkTabContent: React.FC<SiteLinkTabContentProps> = ({
             linkSeq: 100,
             linkTitle: '추가하기',
             linkURL: '',
-          }}></SiteLinkItem>
+          }}
+        />
       )}
     </Content>
   );

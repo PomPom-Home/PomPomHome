@@ -5,18 +5,20 @@ import styled from 'styled-components';
 import data from '../api/data';
 import { useState } from 'react';
 
-const SiteLinkContainer = () => {
+type SiteLinkContainerProps = {
+  height: number;
+};
+
+const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
   const [currentTabSeq, setCurrentTabSeq] = useState<number>(0);
   const _data = data;
   const handleSelectTab = (tabSeq: number) => {
     setCurrentTabSeq(tabSeq);
   };
-  const width = 600;
-  const height = 300;
   return (
-    <WidgetLayout width={`${width}px`} height={`${height}px`}>
+    <WidgetLayout height={`${height}px`}>
       <TabWrapper>
-        <TabMenu>
+        <TabMenu className="notDraggable">
           {_data.map(item => (
             <li
               key={item.tabSeq}

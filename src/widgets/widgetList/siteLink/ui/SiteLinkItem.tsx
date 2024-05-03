@@ -8,7 +8,7 @@ type SiteLinkItemProps = {
 
 const SiteLinkItem: React.FC<SiteLinkItemProps> = ({ linkInfo }) => {
   return (
-    <LinkWrapper>
+    <LinkWrapper className="notDraggable">
       <a href={linkInfo.linkURL}></a>
       <LinkFavicon>
         <img src={icon} />

@@ -71,7 +71,7 @@ const WidgetLayer = () => {
         cols={{ lg: 12, md: 10, sm: 6 }}
         rowHeight={ROW_HEIGHT}
         draggableCancel=".notDraggable"
-        verticalCompact={false}
+        compactType="horizontal"
         allowOverlap
         onBreakpointChange={onBreakPointChange}
         onLayoutChange={handleLayoutChange}>

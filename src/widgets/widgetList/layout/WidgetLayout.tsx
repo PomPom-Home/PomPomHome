@@ -25,7 +25,8 @@ const WidgetLayout: React.FC<WidgetLayoutProps> = ({ children, height }) => {
 
   useEffect(() => {
     if (wrapperRef.current) {
-      setIsHeaderTop(wrapperRef.current.offsetTop >= 35);
+      const top = wrapperRef.current.getBoundingClientRect().top;
+      setIsHeaderTop(top >= 35);
     }
   }, [height]); // height가 변경될 때마다 다시 계산
 

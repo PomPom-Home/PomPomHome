@@ -3,6 +3,9 @@ import GlobalStyles from '../styles/GlobalStyles';
 import { theme } from '../styles/Theme';
 import BrowserRouter from './RouterProvider';
 
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
+
 const App = () => {
   return (
     <>

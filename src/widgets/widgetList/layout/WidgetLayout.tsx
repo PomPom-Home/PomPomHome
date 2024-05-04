@@ -1,26 +1,20 @@
 import styled from 'styled-components';
-import ModalPortal from '@shared/ui/ModalPortal';
 import SettingLayout from './SettingLayout';
 import React, { useEffect, useRef, useState } from 'react';
 
 import SettingIcon from '@assets/icon/settingIcon.svg?react'; // svg import 시 ?react 필수
 import CloseIcon from '@assets/icon/closeIcon.svg?react'; // svg import 시 ?react 필수
+import Modal from '@shared/ui/Modal';
 
 type WidgetWrapType = {
-  width: string;
   height: string;
 };
 type WidgetLayoutProps = WidgetWrapType & {
   children: React.ReactNode[]; // 자식 노드를 2개 가지며, 첫번째 노드는 위젯이 들어가며, 두번째 노드는 환경설정 내용이 됩니다.
-  width: string;
   height: string;
 };
 
-const WidgetLayout: React.FC<WidgetLayoutProps> = ({
-  children,
-  width,
-  height,
-}) => {
+const WidgetLayout: React.FC<WidgetLayoutProps> = ({ children, height }) => {
   const [showSetting, setShowSetting] = useState<boolean>(false);
   const toggleSetting = () => {
     setShowSetting(prev => !prev);
@@ -31,23 +25,24 @@ const WidgetLayout: React.FC<WidgetLayoutProps> = ({
 
   useEffect(() => {
     if (wrapperRef.current) {
-      setIsHeaderTop(wrapperRef.current.offsetTop >= 35);
+      const top = wrapperRef.current.getBoundingClientRect().top;
+      setIsHeaderTop(top >= 35);
     }
   }, [height]); // height가 변경될 때마다 다시 계산
 
   return (
-    <Wrapper ref={wrapperRef} width={width} height={height}>
+    <Wrapper ref={wrapperRef} height={height}>
       <Content>{children[0]}</Content>
-      <Header top={isHeaderTop ? '-35px' : height}>
+      <Header top={isHeaderTop ? '-35px' : height} className="notDraggable">
         <SettingButton onClick={toggleSetting} />
         <CloseButton />
       </Header>
       {showSetting && (
-        <ModalPortal>
+        <Modal onClose={toggleSetting}>
           <SettingLayout handleClose={toggleSetting}>
             {children[1]}
           </SettingLayout>
-        </ModalPortal>
+        </Modal>
       )}
     </Wrapper>
   );
@@ -57,7 +52,6 @@ export default WidgetLayout;
 
 // Content에서 Header 을 다음 형제 선택자로 선택하기 위해 column-reverse 사용
 const Wrapper = styled.div<WidgetWrapType>`
-  width: ${props => props.width};
   height: ${props => props.height};
   //   background-color: lightGray;
   display: flex;

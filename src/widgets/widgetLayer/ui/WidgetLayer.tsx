@@ -8,12 +8,9 @@ import {
   useWidgetLayer,
   useWidgetLayerAction,
 } from '@shared/stores/backgroundWidgetLayerStore';
+import { WIDGET_KEYS } from '@shared/stores/widgetLayerSlice';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-
-const WIDGET_KEYS = {
-  siteLink: 'siteLink',
-};
 
 const ROW_HEIGHT = 100;
 
@@ -62,6 +59,7 @@ const WidgetLayer = () => {
         draggableCancel=".notDraggable"
         compactType="horizontal"
         allowOverlap
+        width={1200}
         onBreakpointChange={handleBreakPointChange}
         onDragStop={handleDragStop}
         onLayoutChange={handleLayoutChange}>
@@ -69,8 +67,8 @@ const WidgetLayer = () => {
         <div key="a">Item A</div>
         <div key="b">Item B</div>
         {visibleState.SITE_LINK.isVisible && (
-          <div key={WIDGET_KEYS.siteLink}>
-            <SiteLinkContainer height={getHeight(WIDGET_KEYS.siteLink)} />
+          <div key={WIDGET_KEYS.SITE_LINK}>
+            <SiteLinkContainer height={getHeight(WIDGET_KEYS.SITE_LINK)} />
           </div>
         )}
       </ResponsiveGridLayout>

@@ -14,7 +14,7 @@ type Position = {
   layouts: { [key: string]: Layout[] };
 };
 
-const WIDGET_KEYS = {
+export const WIDGET_KEYS = {
   SITE_LINK: 'siteLink',
 };
 

@@ -12,9 +12,14 @@ type WidgetWrapType = {
 type WidgetLayoutProps = WidgetWrapType & {
   children: React.ReactNode[]; // 자식 노드를 2개 가지며, 첫번째 노드는 위젯이 들어가며, 두번째 노드는 환경설정 내용이 됩니다.
   height: string;
+  onClose: () => void;
 };
 
-const WidgetLayout: React.FC<WidgetLayoutProps> = ({ children, height }) => {
+const WidgetLayout: React.FC<WidgetLayoutProps> = ({
+  children,
+  height,
+  onClose,
+}) => {
   const [showSetting, setShowSetting] = useState<boolean>(false);
   const toggleSetting = () => {
     setShowSetting(prev => !prev);
@@ -35,7 +40,7 @@ const WidgetLayout: React.FC<WidgetLayoutProps> = ({ children, height }) => {
       <Content>{children[0]}</Content>
       <Header top={isHeaderTop ? '-35px' : height} className="notDraggable">
         <SettingButton onClick={toggleSetting} />
-        <CloseButton />
+        <CloseButton onClick={onClose} />
       </Header>
       {showSetting && (
         <Modal onClose={toggleSetting}>
@@ -52,7 +57,7 @@ export default WidgetLayout;
 
 // Content에서 Header 을 다음 형제 선택자로 선택하기 위해 column-reverse 사용
 const Wrapper = styled.div<WidgetWrapType>`
-  height: ${props => props.height};
+  height: 100%;
   //   background-color: lightGray;
   display: flex;
   flex-direction: column-reverse;

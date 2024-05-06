@@ -4,6 +4,7 @@ import SiteLinkTabContent from './SiteLinkTabContent';
 import styled from 'styled-components';
 import data from '../api/data';
 import { useState } from 'react';
+import { useWidgetLayerAction } from '@shared/stores/backgroundWidgetLayerStore';
 
 type SiteLinkContainerProps = {
   height: number;
@@ -15,8 +16,13 @@ const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
   const handleSelectTab = (tabSeq: number) => {
     setCurrentTabSeq(tabSeq);
   };
+  const { updateWidgetVisible } = useWidgetLayerAction();
+
+  const handleClose = () => {
+    updateWidgetVisible('SITE_LINK', false);
+  };
   return (
-    <WidgetLayout height={`${height}px`}>
+    <WidgetLayout height={`${height}px`} onClose={handleClose}>
       <TabWrapper>
         <TabMenu className="notDraggable">
           {_data.map(item => (

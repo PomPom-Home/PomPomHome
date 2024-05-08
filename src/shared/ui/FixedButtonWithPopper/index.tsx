@@ -52,17 +52,36 @@ const ButtonWrapper = styled.div<{
   left: ${props => (props.left !== undefined ? `${props.left}px` : 'auto')};
   right: ${props => (props.right !== undefined ? `${props.right}px` : 'auto')};
   z-index: 9999;
+  background-color: transparent;
 `;
 
 const Button = styled.button`
+  all: unset;
   position: relative;
   z-index: 1;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 3px 5px 10px -10px gray;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    stroke-width 0.2s;
+  &:hover {
+    transform: scale(1.1); // 10% 크기 증가
+    stroke-width: 5;
+  }
 `;
 
 const Popper = styled.div`
   position: absolute;
   bottom: 100%;
-  transform: translateX(-50%);
+  transform: translateX(calc(-100% + 40px));
   border-radius: 5px;
   padding: 8px;
   z-index: 0;
@@ -90,7 +109,7 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 5px 3px;
+  padding: 10px;
 `;
 
 export default FixedButtonWithPopper;

@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import {
+  useMemoContent,
+  useMemoActions,
+} from '../../../../shared/stores/backgroundWidgetLayerStore';
 
 const MemoWrapper = styled.div`
   width: 100%;
@@ -19,10 +23,18 @@ const Memo = styled.textarea`
   flex: 1;
   //z-index: 1;
 `;
+
+// fixme: memo 위젯을 닫을 때 clearMemo
 const MemoContent = () => {
+  const memoContent = useMemoContent();
+  const { setMemo } = useMemoActions(); // 추후 clearMemo 추가
+
+  const handleMemoChange = event => {
+    setMemo(event.target.value);
+  };
   return (
     <MemoWrapper>
-      <Memo />
+      <Memo value={memoContent || ''} onChange={handleMemoChange} />
     </MemoWrapper>
   );
 };

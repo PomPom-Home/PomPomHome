@@ -2,9 +2,10 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { BackGroundSlice, createBackGroundSlice } from './backgroundSlice';
 import { WidgetLayerSlice, createWidgetLayoutSlice } from './widgetLayerSlice';
+import { MemoState, createMemoSlice } from './memoSlice';
 import { immer } from 'zustand/middleware/immer';
 
-export type BoundSlice = BackGroundSlice & WidgetLayerSlice;
+export type BoundSlice = BackGroundSlice & WidgetLayerSlice & MemoState;
 
 const useBoundStore = create<BoundSlice>()(
   immer(
@@ -13,6 +14,7 @@ const useBoundStore = create<BoundSlice>()(
         (...a) => ({
           ...createBackGroundSlice(...a),
           ...createWidgetLayoutSlice(...a),
+          ...createMemoSlice(...a),
         }),
         {
           name: 'backgroundWidgetLayerStorage',
@@ -22,6 +24,7 @@ const useBoundStore = create<BoundSlice>()(
             colorCode: state.colorCode,
             position: state.position,
             widgetVisibleState: state.widgetVisibleState,
+            memo: state.memo,
           }),
         }
       )
@@ -43,3 +46,11 @@ export const useWidgetLayer = () =>
 
 export const useWidgetLayerAction = () =>
   useBoundStore(state => state.widgetLayerActions);
+
+export const useMemoContent = () => useBoundStore(state => state.memo);
+
+export const useMemoActions = () =>
+  useBoundStore(state => ({
+    setMemo: state.setMemo,
+    clearMemo: state.clearMemo,
+  }));

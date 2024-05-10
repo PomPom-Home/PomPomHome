@@ -68,7 +68,7 @@ const WidgetLayer = () => {
         <div key="a">Item A</div>
         <div key="b">Item B</div>
         <div key={WIDGET_KEYS.MEMO}>
-          <MemoContainer />
+          <MemoContainer height="300" />
         </div>
         {visibleState.SITE_LINK.isVisible && (
           <div key={WIDGET_KEYS.SITE_LINK}>

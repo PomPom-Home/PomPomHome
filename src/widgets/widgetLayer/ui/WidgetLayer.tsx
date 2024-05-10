@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import SiteLinkContainer from './../../widgetList/siteLink/ui/SiteLinkContainer';
+import MemoContainer from '../../widgetList/memo/ui/MemoContainer';
 import { useCallback } from 'react';
 import { cloneDeep } from 'lodash';
 
@@ -66,6 +67,9 @@ const WidgetLayer = () => {
         {/* FIXME: 임시로 item A 및 B 추가. 향후 위젯 추가시 삭제 요망*/}
         <div key="a">Item A</div>
         <div key="b">Item B</div>
+        <div key={WIDGET_KEYS.MEMO}>
+          <MemoContainer />
+        </div>
         {visibleState.SITE_LINK.isVisible && (
           <div key={WIDGET_KEYS.SITE_LINK}>
             <SiteLinkContainer height={getHeight(WIDGET_KEYS.SITE_LINK)} />

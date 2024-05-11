@@ -1,12 +1,14 @@
 import { StateCreator } from 'zustand';
 import { BoundSlice } from './backgroundWidgetLayerStore';
 
+export type BackgroundType = 'image' | 'color';
+
 export type BackGroundSlice = {
-  type: 'image' | 'color';
+  type: BackgroundType;
   imageUrl: string;
   colorCode: string;
   backGroundActions: {
-    changeType: () => void;
+    changeType: (type: BackgroundType) => void;
     changeColor: (code: string) => void;
     changeImage: (url: string) => void;
   };
@@ -19,12 +21,12 @@ export const createBackGroundSlice: StateCreator<
   BackGroundSlice
 > = set => ({
   type: 'color',
-  imageUrl: '',
+  imageUrl: 'src/assets/background/backGroundSample.png',
   colorCode: 'ffffff',
   backGroundActions: {
-    changeType: () =>
+    changeType: type =>
       set(state => {
-        state.type === 'color' ? 'image' : 'color';
+        state.type = type;
       }),
     changeColor: code =>
       set(state => {

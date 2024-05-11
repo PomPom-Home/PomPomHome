@@ -4,6 +4,9 @@ import WidgetLayer from 'src/widgets/widgetLayer/ui/WidgetLayer';
 import BackgroundSelector from 'src/widgets/widgetList/backgroundSelector/ui/BackgroundSelector';
 import styled from 'styled-components';
 import { FaImage } from 'react-icons/fa6';
+import { FiPlus } from 'react-icons/fi';
+
+import WidgetSelector from 'src/widgets/widgetList/widgetSelector/ui/WidgetSelector';
 
 const NewTab = () => {
   const { backgroundType, color, imageUrl } = useBackground();
@@ -12,9 +15,14 @@ const NewTab = () => {
     <main>
       <WidgetLayer />
       <FixedButtonWithPopper
-        position={{ bottom: 10, right: 10 }}
+        position={{ bottom: 80, right: 10 }}
         poppedChildren={<BackgroundSelector />}>
         <FaImage />
+      </FixedButtonWithPopper>
+      <FixedButtonWithPopper
+        position={{ bottom: 10, right: 10 }}
+        poppedChildren={<WidgetSelector />}>
+        <FiPlus />
       </FixedButtonWithPopper>
       <Background
         color={backgroundType === 'color' ? color : 'unset'}

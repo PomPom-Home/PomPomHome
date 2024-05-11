@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import SiteLinkItem from './SiteLinkItem';
-import type { SiteLinkItemType } from '@shared/stores/siteLinkStore';
+import type { SiteLinkItemType } from '@shared/model';
 
 type SiteLinkTabContentProps = {
   linkList: SiteLinkItemType[];
@@ -9,8 +9,8 @@ type SiteLinkTabContentProps = {
 const SiteLinkTabContent = ({ linkList }: SiteLinkTabContentProps) => {
   return (
     <Content>
-      {linkList.map(item => (
-        <SiteLinkItem key={item.linkSeq} linkInfo={item}></SiteLinkItem>
+      {linkList.map((item, i) => (
+        <SiteLinkItem key={i} linkInfo={item}></SiteLinkItem>
       ))}
     </Content>
   );

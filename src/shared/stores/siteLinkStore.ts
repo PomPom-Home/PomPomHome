@@ -2,20 +2,11 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-export type SiteLinkItemType = {
-  linkSeq: number;
-  linkTitle: string;
-  linkURL: string;
-};
-
-export type SiteLinkType = {
-  tabSeq: number;
-  tabTitle: string;
-  linkList: SiteLinkItemType[];
-};
+import type { SiteLinkType } from '@shared/model';
 
 type SiteLinkStore = {
   data: SiteLinkType[];
+  minTabSeq: number;
   setData: (newData: SiteLinkType[]) => void;
 };
 
@@ -37,7 +28,14 @@ const useSiteLinkStore = create<SiteLinkStore>()(
             ],
           },
         ],
-        setData: (newData: SiteLinkType[]) => set(() => ({ data: newData })),
+        minTabSeq: 0,
+        setData: (newData: SiteLinkType[]) =>
+          set(() => {
+            const minSeq = newData.reduce((acc, curr) => {
+              return acc.tabSeq < curr.tabSeq ? acc : curr;
+            }).tabSeq;
+            return { data: newData, minTabSeq: minSeq };
+          }),
       }))
     ),
     {

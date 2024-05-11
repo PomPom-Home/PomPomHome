@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 const SITE_LINK = () => {
   const StyledGoPaperclip = styled(GoPaperclip)``;
-
   return <StyledGoPaperclip />;
 };
 

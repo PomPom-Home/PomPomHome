@@ -1,14 +1,13 @@
 import useSiteLinkStore from '@shared/stores/siteLinkStore';
 import { cloneDeep } from 'lodash';
-import type {
-  SiteLinkType,
-  SiteLinkItemType,
-} from '@shared/stores/siteLinkStore';
+import type { SiteLinkType, SiteLinkItemType } from '@shared/model';
 import styled, { css } from 'styled-components';
 import { useState } from 'react';
 
 const SiteLinkSetting = () => {
-  const [currentTabSeq, setCurrentTabSeq] = useState<number>(0);
+  const setData = useSiteLinkStore(state => state.setData);
+  const minTabSeq = useSiteLinkStore(state => state.minTabSeq);
+  const [currentTabSeq, setCurrentTabSeq] = useState<number>(minTabSeq);
 
   const handleSelectTab = (tabSeq: number) => {
     setCurrentTabSeq(tabSeq);
@@ -17,14 +16,14 @@ const SiteLinkSetting = () => {
   const [copyData, setCopyData] = useState<SiteLinkType[]>(
     cloneDeep(useSiteLinkStore(state => state.data))
   );
-  const setData = useSiteLinkStore(state => state.setData);
+
   const handleApply = () => {
     setData(copyData);
   };
   // tab, link seq로 인덱스 찾기
   const getIdxBySeq = (tabSeq: number, linkSeq: number) => {
     const tabIdx = copyData.findIndex((x: SiteLinkType) => x.tabSeq === tabSeq);
-    const linkIdx = copyData[tabIdx].linkList.findIndex(
+    const linkIdx = copyData[tabIdx]?.linkList.findIndex(
       (x: SiteLinkItemType) => x.linkSeq === linkSeq
     );
     return { tabIdx, linkIdx };
@@ -81,6 +80,7 @@ const SiteLinkSetting = () => {
     setCopyData(prev => {
       const newData = cloneDeep(prev);
       const tabIdx = newData.findIndex(tab => tab.tabSeq === tabSeq);
+
       // 새 링크 아이템 생성
       const newLink = {
         linkSeq:
@@ -96,7 +96,7 @@ const SiteLinkSetting = () => {
     setCopyData(prev => {
       const newData = cloneDeep(prev);
       const { tabIdx, linkIdx } = getIdxBySeq(tabSeq, linkSeq);
-      newData[tabIdx].linkList.splice(linkIdx, 1);
+      newData[tabIdx].linkList?.splice(linkIdx, 1);
       return newData; // 변경된 새 데이터를 반환
     });
   };
@@ -104,21 +104,24 @@ const SiteLinkSetting = () => {
   return (
     <Container>
       <TabArea>
-        {copyData.map(item => {
+        {copyData.map((item, i, arr) => {
           return (
-            <TabItemWrapper key={item.tabSeq}>
+            <TabItemWrapper key={i}>
               <TabItem
                 onClick={() => handleSelectTab(item.tabSeq)}
                 value={item.tabTitle}
                 onChange={e => {
                   updateTab(item.tabSeq, e.target.value);
                 }}
+                className={item.tabSeq === currentTabSeq ? 'selected' : ''}
               />
-              <DeleteButton
-                onClick={() => {
-                  deleteTab(item.tabSeq);
-                }}
-              />
+              {arr.length > 1 && (
+                <DeleteButton
+                  onClick={() => {
+                    deleteTab(item.tabSeq);
+                  }}
+                />
+              )}
             </TabItemWrapper>
           );
         })}
@@ -127,7 +130,7 @@ const SiteLinkSetting = () => {
       <LinkArea>
         {copyData
           .filter(i => i.tabSeq === currentTabSeq)[0]
-          .linkList.map(item => (
+          ?.linkList?.map((item, _, arr) => (
             <LinkItem key={item.linkSeq}>
               <TitleInput
                 type="text"
@@ -153,19 +156,23 @@ const SiteLinkSetting = () => {
                   );
                 }}
               />
-              <DeleteButton
-                onClick={() => {
-                  deleteLink(currentTabSeq, item.linkSeq);
-                }}
-              />
+              {arr.length > 1 && (
+                <DeleteButton
+                  onClick={() => {
+                    deleteLink(currentTabSeq, item.linkSeq);
+                  }}
+                />
+              )}
             </LinkItem>
           ))}
-        <AddButton
-          onClick={() => {
-            addLink(currentTabSeq);
-          }}>
-          +
-        </AddButton>
+        {copyData.filter(i => i.tabSeq === currentTabSeq)[0] && (
+          <AddButton
+            onClick={() => {
+              addLink(currentTabSeq);
+            }}>
+            +
+          </AddButton>
+        )}
       </LinkArea>
       <SaveButton onClick={handleApply}>Apply</SaveButton>
     </Container>
@@ -215,11 +222,7 @@ const TabItem = styled.input.attrs({ type: 'text' })`
   border: none;
   outline: none;
   background-color: transparent;
-  &:hover,
-  &:focus {
-    background-color: rgba(0, 0, 0, 0.2);
-    border: none;
-  }
+
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -230,6 +233,15 @@ const TabItem = styled.input.attrs({ type: 'text' })`
   color: rgba(0, 0, 0, 0.5);
 
   font-size: 16px;
+
+  &:hover,
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+  }
+  &.selected {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const LinkArea = styled.div`
@@ -321,7 +333,7 @@ const AddButton = styled.button`
   background-color: #b5b5b5ff;
   color: #ffffff;
   font-size: 20px;
-
+  cursor: pointer;
   &:hover {
     background-color: #929191ff;
   }

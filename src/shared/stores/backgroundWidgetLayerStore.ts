@@ -7,7 +7,7 @@ import { immer } from 'zustand/middleware/immer';
 
 export type BoundSlice = BackGroundSlice & WidgetLayerSlice & MemoState;
 
-const useBoundStore = create<BoundSlice>()(
+export const useBoundStore = create<BoundSlice>()(
   immer(
     devtools(
       persist(
@@ -20,7 +20,8 @@ const useBoundStore = create<BoundSlice>()(
           name: 'backgroundWidgetLayerStorage',
           partialize: state => ({
             type: state.type,
-            imageUrl: state.imageUrl,
+            imageUrl:
+              state.imageUrl || '/src/assets/background/backGroundSample.png',
             colorCode: state.colorCode,
             position: state.position,
             widgetVisibleState: state.widgetVisibleState,
@@ -33,7 +34,11 @@ const useBoundStore = create<BoundSlice>()(
 );
 
 export const useBackground = () =>
-  useBoundStore(state => ({ image: state.imageUrl, color: state.colorCode }));
+  useBoundStore(state => ({
+    imageUrl: state.imageUrl,
+    color: state.colorCode,
+    backgroundType: state.type,
+  }));
 
 export const useBackgroundActions = () =>
   useBoundStore(state => state.backGroundActions);

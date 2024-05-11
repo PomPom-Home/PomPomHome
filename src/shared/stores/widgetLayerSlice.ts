@@ -16,6 +16,7 @@ type Position = {
 
 export const WIDGET_KEYS = {
   SITE_LINK: 'siteLink',
+  MEMO: 'memo',
 };
 
 type WidgetLayoutState = {
@@ -40,7 +41,10 @@ export const createWidgetLayoutSlice: StateCreator<
   [],
   WidgetLayerSlice
 > = set => ({
-  widgetVisibleState: { SITE_LINK: { isVisible: true } },
+  widgetVisibleState: {
+    SITE_LINK: { isVisible: true },
+    MEMO: { isVisible: true },
+  },
   position: { breakpoints: '', layouts: {} },
   widgetLayerActions: {
     updateWidgetPosition: position =>

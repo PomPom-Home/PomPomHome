@@ -22,10 +22,9 @@ const Memo = styled.textarea`
   flex: 1;
 `;
 
-// fixme: memo 위젯을 닫을 때 clearMemo
 const MemoContent = () => {
   const memoContent = useMemoContent();
-  const { setMemo } = useMemoActions(); // 추후 clearMemo 추가
+  const { setMemo } = useMemoActions();
 
   const handleMemoChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMemo(event.target.value);

@@ -1,10 +1,13 @@
-import SiteLinkSetting from './SiteLinkSetting';
-import WidgetLayout from '../../layout/WidgetLayout';
-import SiteLinkTabContent from './SiteLinkTabContent';
 import styled from 'styled-components';
-import data from '../api/data';
+
+import WidgetLayout from '../../layout/WidgetLayout';
+import SiteLinkSetting from './SiteLinkSetting';
+import SiteLinkTabContent from './SiteLinkTabContent';
+
 import { useState } from 'react';
 import { useWidgetLayerAction } from '@shared/stores/backgroundWidgetLayerStore';
+
+import useSiteLinkStore from '@shared/stores/siteLinkStore';
 
 type SiteLinkContainerProps = {
   height: number;
@@ -12,20 +15,25 @@ type SiteLinkContainerProps = {
 
 const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
   const [currentTabSeq, setCurrentTabSeq] = useState<number>(0);
-  const _data = data;
+  const { updateWidgetVisible } = useWidgetLayerAction();
+
+  // store에서 값 가져오기
+  const data = useSiteLinkStore(state => state.data);
+
   const handleSelectTab = (tabSeq: number) => {
     setCurrentTabSeq(tabSeq);
   };
-  const { updateWidgetVisible } = useWidgetLayerAction();
 
+  // 위젯 숨김 처리 함수
   const handleClose = () => {
     updateWidgetVisible('SITE_LINK', false);
   };
+
   return (
     <WidgetLayout height={`${height}px`} onClose={handleClose}>
       <TabWrapper>
         <TabMenu className="notDraggable">
-          {_data.map(item => (
+          {data.map(item => (
             <li
               key={item.tabSeq}
               className={
@@ -37,7 +45,7 @@ const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
           ))}
         </TabMenu>
         <TabContent height={`${height - 50}px`}>
-          <SiteLinkTabContent linkList={_data[currentTabSeq].linkList} />
+          <SiteLinkTabContent linkList={data[currentTabSeq].linkList} />
         </TabContent>
       </TabWrapper>
       <SiteLinkSetting />
@@ -80,7 +88,6 @@ const TabMenu = styled.ul`
 
   .focused {
     //선택된 Tabmenu 에만 적용되는 CSS를 구현
-    //background-color: rgb(255, 255, 255);
     color: rgb(45, 42, 42);
     background-color: rgba(0, 0, 0, 0.2);
     border-bottom: 2px solid black;

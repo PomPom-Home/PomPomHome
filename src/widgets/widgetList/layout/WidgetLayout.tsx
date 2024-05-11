@@ -15,11 +15,7 @@ type WidgetLayoutProps = WidgetWrapType & {
   onClose: () => void;
 };
 
-const WidgetLayout: React.FC<WidgetLayoutProps> = ({
-  children,
-  height,
-  onClose,
-}) => {
+const WidgetLayout = ({ children, height, onClose }: WidgetLayoutProps) => {
   const [showSetting, setShowSetting] = useState<boolean>(false);
   const toggleSetting = () => {
     setShowSetting(prev => !prev);

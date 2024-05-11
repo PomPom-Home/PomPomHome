@@ -1,6 +1,7 @@
 import { WIDGET_KEYS } from '@shared/model';
 import { GoPaperclip } from 'react-icons/go';
 import { CiMemoPad } from 'react-icons/ci';
+import { IoSearch } from 'react-icons/io5';
 
 import styled from 'styled-components';
 
@@ -14,7 +15,13 @@ const MEMO = () => {
   return <StyledCiMemoPad />;
 };
 
+const SEARCH_BOX = () => {
+  const StyledIoSearch = styled(IoSearch)``;
+  return <StyledIoSearch />;
+};
+
 export const WIDGET_ICONS: Record<keyof typeof WIDGET_KEYS, JSX.Element> = {
   SITE_LINK: SITE_LINK(),
   MEMO: MEMO(),
+  SEARCH_BOX: SEARCH_BOX(),
 };

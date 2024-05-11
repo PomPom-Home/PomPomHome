@@ -12,7 +12,10 @@ const MemoContainer = ({ height }: MemoContainerProps) => {
     updateWidgetVisible('MEMO', false);
   };
   return (
-    <WidgetLayout height={`${height}px`} onClose={handleClose}>
+    <WidgetLayout
+      height={`${height}px`}
+      onClose={handleClose}
+      hasSetting={false}>
       <MemoContent />
       <div>?</div>
     </WidgetLayout>

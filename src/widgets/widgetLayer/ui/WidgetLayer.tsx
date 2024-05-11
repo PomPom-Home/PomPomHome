@@ -41,7 +41,7 @@ const WidgetLayer = () => {
       return (
         ROW_HEIGHT *
         position.layouts[position.breakpoints]?.filter(({ i }) => i === key)[0]
-          .h
+          ?.h
       );
     },
     [position.breakpoints, position.layouts]

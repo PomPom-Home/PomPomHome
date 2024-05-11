@@ -6,16 +6,19 @@ import SettingIcon from '@assets/icon/settingIcon.svg?react'; // svg import 시 
 import Modal from '@shared/ui/Modal';
 import CloseButton from '@shared/ui/CloseButtonWithHover';
 
-type WidgetWrapType = {
-  height: string;
-};
-type WidgetLayoutProps = WidgetWrapType & {
+type WidgetLayoutProps = {
   children: React.ReactNode[]; // 자식 노드를 2개 가지며, 첫번째 노드는 위젯이 들어가며, 두번째 노드는 환경설정 내용이 됩니다.
   height: string;
   onClose: () => void;
+  hasSetting?: boolean;
 };
 
-const WidgetLayout = ({ children, height, onClose }: WidgetLayoutProps) => {
+const WidgetLayout = ({
+  children,
+  height,
+  onClose,
+  hasSetting = true,
+}: WidgetLayoutProps) => {
   const [showSetting, setShowSetting] = useState<boolean>(false);
   const toggleSetting = () => {
     setShowSetting(prev => !prev);
@@ -35,7 +38,7 @@ const WidgetLayout = ({ children, height, onClose }: WidgetLayoutProps) => {
     <Wrapper ref={wrapperRef} height={height}>
       <Content>{children[0]}</Content>
       <Header top={isHeaderTop ? '-35px' : height} className="notDraggable">
-        <SettingButton onClick={toggleSetting} />
+        {hasSetting && <SettingButton onClick={toggleSetting} />}
         <CloseButton onClick={onClose} width="30px" height="30px" />
       </Header>
       {showSetting && (
@@ -52,7 +55,7 @@ const WidgetLayout = ({ children, height, onClose }: WidgetLayoutProps) => {
 export default WidgetLayout;
 
 // Content에서 Header 을 다음 형제 선택자로 선택하기 위해 column-reverse 사용
-const Wrapper = styled.div<WidgetWrapType>`
+const Wrapper = styled.div<{ height: string }>`
   height: 100%;
   //   background-color: lightGray;
   display: flex;

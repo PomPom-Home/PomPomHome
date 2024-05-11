@@ -2,14 +2,13 @@ import styled from 'styled-components';
 import SiteLinkContainer from './../../widgetList/siteLink/ui/SiteLinkContainer';
 import MemoContainer from '../../widgetList/memo/ui/MemoContainer';
 import { useCallback } from 'react';
-import { cloneDeep } from 'lodash';
 
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import {
   useWidgetLayer,
   useWidgetLayerAction,
 } from '@shared/stores/backgroundWidgetLayerStore';
-import { WIDGET_KEYS } from '@shared/stores/widgetLayerSlice';
+import { WIDGET_KEYS } from '@shared/model';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -23,11 +22,11 @@ const WidgetLayer = () => {
     updateWidgetPosition({ ...position, breakpoints: breakpoint });
   };
 
-  const handleLayoutChange = (
-    _: ReactGridLayout.Layout[],
-    layouts: ReactGridLayout.Layouts
-  ) => {
-    updateWidgetPosition({ ...position, layouts: cloneDeep(layouts) });
+  const handleResizeEnd = (layout: ReactGridLayout.Layout[]) => {
+    updateWidgetPosition({
+      ...position,
+      layouts: { ...position.layouts, [position.breakpoints]: layout },
+    });
   };
 
   const handleDragStop = (layout: ReactGridLayout.Layout[]) => {
@@ -53,6 +52,7 @@ const WidgetLayer = () => {
       <ResponsiveGridLayout
         style={{ height: '100%' }}
         className="layout"
+        onResizeStop={handleResizeEnd}
         layouts={{ ...position.layouts }}
         breakpoints={{ lg: 1200, md: 996, sm: 768 }}
         cols={{ lg: 12, md: 10, sm: 6 }}
@@ -62,8 +62,7 @@ const WidgetLayer = () => {
         allowOverlap
         width={1200}
         onBreakpointChange={handleBreakPointChange}
-        onDragStop={handleDragStop}
-        onLayoutChange={handleLayoutChange}>
+        onDragStop={handleDragStop}>
         {/* FIXME: 임시로 item A 및 B 추가. 향후 위젯 추가시 삭제 요망*/}
         <div key="a">Item A</div>
         <div key="b">Item B</div>

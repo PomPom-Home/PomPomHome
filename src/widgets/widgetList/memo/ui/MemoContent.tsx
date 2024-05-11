@@ -7,7 +7,6 @@ import {
 const MemoWrapper = styled.div`
   width: 100%;
   height: 100%;
-  //background-color: pink;
   display: flex;
   flex-direction: column;
 `;
@@ -21,7 +20,6 @@ const Memo = styled.textarea`
   outline: none;
   color: black;
   flex: 1;
-  //z-index: 1;
 `;
 
 // fixme: memo 위젯을 닫을 때 clearMemo
@@ -29,9 +27,10 @@ const MemoContent = () => {
   const memoContent = useMemoContent();
   const { setMemo } = useMemoActions(); // 추후 clearMemo 추가
 
-  const handleMemoChange = event => {
+  const handleMemoChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMemo(event.target.value);
   };
+
   return (
     <MemoWrapper>
       <Memo value={memoContent || ''} onChange={handleMemoChange} />

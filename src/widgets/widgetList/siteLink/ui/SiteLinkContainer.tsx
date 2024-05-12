@@ -31,9 +31,11 @@ const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
   };
 
   // 선택 중이던 탭이 삭제되었을 경우, 최소값 seq를 가진 탭을 선택한다.
-  let showLinkList = data.filter(x => x.tabSeq === currentTabSeq)[0]?.linkList;
-  if (!showLinkList)
-    showLinkList = data.filter(x => x.tabSeq === minTabSeq)[0].linkList;
+  let currLinkList = data.filter(tabItem => tabItem.tabSeq === currentTabSeq)[0]
+    ?.linkList;
+  if (!currLinkList)
+    currLinkList = data.filter(tabItem => tabItem.tabSeq === minTabSeq)[0]
+      .linkList;
 
   useEffect(() => {
     setCurrentTabSeq(minTabSeq);
@@ -58,7 +60,7 @@ const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
           ))}
         </TabMenu>
         <TabContent height={`${height - 50}px`}>
-          <SiteLinkTabContent linkList={showLinkList} />
+          <SiteLinkTabContent linkList={currLinkList} />
         </TabContent>
       </TabWrapper>
     </WidgetLayout>

@@ -5,10 +5,7 @@ type SettingLayoutProps = {
   handleClose: () => void;
 };
 
-const SettingLayout: React.FC<SettingLayoutProps> = ({
-  children,
-  handleClose,
-}) => {
+const SettingLayout = ({ children, handleClose }: SettingLayoutProps) => {
   return (
     <Container>
       <Header>

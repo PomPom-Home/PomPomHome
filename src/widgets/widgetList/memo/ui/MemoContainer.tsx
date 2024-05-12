@@ -14,7 +14,6 @@ const MemoContainer = ({ height }: MemoContainerProps) => {
   return (
     <WidgetLayout height={`${height}px`} onClose={handleClose}>
       <MemoContent />
-      <div>?</div>
     </WidgetLayout>
   );
 };

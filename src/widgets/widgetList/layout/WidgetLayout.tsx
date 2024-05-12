@@ -6,25 +6,28 @@ import SettingIcon from '@assets/icon/settingIcon.svg?react'; // svg import 시 
 import Modal from '@shared/ui/Modal';
 import CloseButton from '@shared/ui/CloseButtonWithHover';
 
-type WidgetWrapType = {
-  height: string;
-};
-type WidgetLayoutProps = WidgetWrapType & {
-  children: React.ReactNode[]; // 자식 노드를 2개 가지며, 첫번째 노드는 위젯이 들어가며, 두번째 노드는 환경설정 내용이 됩니다.
-  height: string;
-  onClose: () => void;
+export type SettingCommponsntProps = {
+  handleClose: () => void; // 환경설정 모달창 닫기 함수
 };
 
-const WidgetLayout: React.FC<WidgetLayoutProps> = ({
+type WidgetLayoutProps = {
+  children: React.ReactNode; // 위젯 내용
+  height: string;
+  onClose: () => void; // 위젯 닫기 함수
+  SettingComponent?: React.ComponentType<SettingCommponsntProps>;
+};
+
+const WidgetLayout = ({
   children,
   height,
   onClose,
-}) => {
+  SettingComponent,
+}: WidgetLayoutProps) => {
   const [showSetting, setShowSetting] = useState<boolean>(false);
   const toggleSetting = () => {
     setShowSetting(prev => !prev);
   };
-
+  const hasSetting = !!SettingComponent; //SettingComponent 없으면 false, 있으면 true로 설정
   const [isHeaderTop, setIsHeaderTop] = useState<boolean>(true);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -37,15 +40,15 @@ const WidgetLayout: React.FC<WidgetLayoutProps> = ({
 
   return (
     <Wrapper ref={wrapperRef} height={height}>
-      <Content>{children[0]}</Content>
+      <Content>{children}</Content>
       <Header top={isHeaderTop ? '-35px' : height} className="notDraggable">
-        <SettingButton onClick={toggleSetting} />
+        {hasSetting && <SettingButton onClick={toggleSetting} />}
         <CloseButton onClick={onClose} width="30px" height="30px" />
       </Header>
-      {showSetting && (
+      {hasSetting && showSetting && (
         <Modal onClose={toggleSetting}>
           <SettingLayout handleClose={toggleSetting}>
-            {children[1]}
+            <SettingComponent handleClose={toggleSetting} />
           </SettingLayout>
         </Modal>
       )}
@@ -56,7 +59,7 @@ const WidgetLayout: React.FC<WidgetLayoutProps> = ({
 export default WidgetLayout;
 
 // Content에서 Header 을 다음 형제 선택자로 선택하기 위해 column-reverse 사용
-const Wrapper = styled.div<WidgetWrapType>`
+const Wrapper = styled.div<{ height: string }>`
   height: 100%;
   //   background-color: lightGray;
   display: flex;

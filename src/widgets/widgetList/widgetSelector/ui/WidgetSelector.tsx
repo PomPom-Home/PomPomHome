@@ -17,14 +17,12 @@ const WidgetSelector = () => {
     <Container count={widgetList.length}>
       {widgetList.map(widget => {
         return (
-          <>
-            <StyledButton
-              disabled={visibleState[widget].isVisible}
-              key={widget}
-              onClick={() => updateWidgetVisible(widget, true)}>
-              {WIDGET_ICONS[widget]}
-            </StyledButton>
-          </>
+          <StyledButton
+            disabled={visibleState[widget].isVisible}
+            key={widget}
+            onClick={() => updateWidgetVisible(widget, true)}>
+            {WIDGET_ICONS[widget]}
+          </StyledButton>
         );
       })}
     </Container>

@@ -1,33 +1,56 @@
-import SiteLinkSetting from './SiteLinkSetting';
-import WidgetLayout from '../../layout/WidgetLayout';
-import SiteLinkTabContent from './SiteLinkTabContent';
 import styled from 'styled-components';
-import data from '../api/data';
-import { useState } from 'react';
+
+import WidgetLayout from '../../layout/WidgetLayout';
+import SiteLinkSetting from './SiteLinkSetting';
+import SiteLinkTabContent from './SiteLinkTabContent';
+
+import { useEffect, useState } from 'react';
 import { useWidgetLayerAction } from '@shared/stores/backgroundWidgetLayerStore';
+
+import useSiteLinkStore from '@shared/stores/siteLinkStore';
 
 type SiteLinkContainerProps = {
   height: number;
 };
 
 const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
-  const [currentTabSeq, setCurrentTabSeq] = useState<number>(0);
-  const _data = data;
+  // store에서 값 가져오기
+  const data = useSiteLinkStore(state => state.data);
+  const minTabSeq = useSiteLinkStore(state => state.minTabSeq);
+  const [currentTabSeq, setCurrentTabSeq] = useState<number>(minTabSeq);
+
+  const { updateWidgetVisible } = useWidgetLayerAction();
+
   const handleSelectTab = (tabSeq: number) => {
     setCurrentTabSeq(tabSeq);
   };
-  const { updateWidgetVisible } = useWidgetLayerAction();
 
+  // 위젯 숨김 처리 함수
   const handleClose = () => {
     updateWidgetVisible('SITE_LINK', false);
   };
+
+  // 선택 중이던 탭이 삭제되었을 경우, 최소값 seq를 가진 탭을 선택한다.
+  let currLinkList = data.filter(tabItem => tabItem.tabSeq === currentTabSeq)[0]
+    ?.linkList;
+  if (!currLinkList)
+    currLinkList = data.filter(tabItem => tabItem.tabSeq === minTabSeq)[0]
+      .linkList;
+
+  useEffect(() => {
+    setCurrentTabSeq(minTabSeq);
+  }, [minTabSeq]);
+
   return (
-    <WidgetLayout height={`${height}px`} onClose={handleClose}>
+    <WidgetLayout
+      height={`${height}px`}
+      onClose={handleClose}
+      SettingComponent={SiteLinkSetting}>
       <TabWrapper>
         <TabMenu className="notDraggable">
-          {_data.map(item => (
+          {data.map((item, i) => (
             <li
-              key={item.tabSeq}
+              key={i}
               className={
                 item.tabSeq === currentTabSeq ? 'submenu focused' : 'submenu'
               }
@@ -37,10 +60,9 @@ const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
           ))}
         </TabMenu>
         <TabContent height={`${height - 50}px`}>
-          <SiteLinkTabContent linkList={_data[currentTabSeq].linkList} />
+          <SiteLinkTabContent linkList={currLinkList} />
         </TabContent>
       </TabWrapper>
-      <SiteLinkSetting />
     </WidgetLayout>
   );
 };
@@ -80,7 +102,6 @@ const TabMenu = styled.ul`
 
   .focused {
     //선택된 Tabmenu 에만 적용되는 CSS를 구현
-    //background-color: rgb(255, 255, 255);
     color: rgb(45, 42, 42);
     background-color: rgba(0, 0, 0, 0.2);
     border-bottom: 2px solid black;

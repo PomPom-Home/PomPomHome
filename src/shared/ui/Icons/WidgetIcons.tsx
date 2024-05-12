@@ -2,7 +2,7 @@ import { WIDGET_KEYS } from '@shared/model';
 import { GoPaperclip } from 'react-icons/go';
 import { CiMemoPad } from 'react-icons/ci';
 import { LuListTodo } from 'react-icons/lu';
-import { BsWindow } from 'react-icons/bs';
+import { IoEarth } from 'react-icons/io5';
 
 import styled from 'styled-components';
 
@@ -22,8 +22,8 @@ const TODO = () => {
 };
 
 const MINI_WEB = () => {
-  const StyledBsWindow = styled(BsWindow)``;
-  return <StyledBsWindow />;
+  const StyledIoEarth = styled(IoEarth)``;
+  return <StyledIoEarth />;
 };
 
 export const WIDGET_ICONS: Record<keyof typeof WIDGET_KEYS, JSX.Element> = {

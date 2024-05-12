@@ -12,8 +12,8 @@ type SiteLinkStore = {
 
 // 환경설정에서 받은 데이터 전체를 교체
 const useSiteLinkStore = create<SiteLinkStore>()(
-  persist(
-    devtools(
+  devtools(
+    persist(
       immer(set => ({
         data: [
           {
@@ -36,11 +36,11 @@ const useSiteLinkStore = create<SiteLinkStore>()(
             }).tabSeq;
             return { data: newData, minTabSeq: minSeq };
           }),
-      }))
-    ),
-    {
-      name: 'siteLinkStorage',
-    }
+      })),
+      {
+        name: 'siteLinkStorage',
+      }
+    )
   )
 );
 

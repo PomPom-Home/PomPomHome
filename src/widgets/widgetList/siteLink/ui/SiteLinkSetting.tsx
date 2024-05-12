@@ -3,8 +3,9 @@ import { cloneDeep } from 'lodash';
 import type { SiteLinkType, SiteLinkItemType } from '@shared/model';
 import styled, { css } from 'styled-components';
 import { useState } from 'react';
+import type { SettingCommponsntProps } from '../../layout/WidgetLayout';
 
-const SiteLinkSetting = () => {
+const SiteLinkSetting = ({ handleClose }: SettingCommponsntProps) => {
   const setData = useSiteLinkStore(state => state.setData);
   const minTabSeq = useSiteLinkStore(state => state.minTabSeq);
   const [currentTabSeq, setCurrentTabSeq] = useState<number>(minTabSeq);
@@ -19,6 +20,7 @@ const SiteLinkSetting = () => {
 
   const handleApply = () => {
     setData(copyData);
+    handleClose();
   };
   // tab, link seq로 인덱스 찾기
   const getIdxBySeq = (tabSeq: number, linkSeq: number) => {

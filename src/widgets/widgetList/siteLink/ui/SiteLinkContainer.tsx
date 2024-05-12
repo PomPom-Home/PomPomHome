@@ -40,7 +40,10 @@ const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
   }, [minTabSeq]);
 
   return (
-    <WidgetLayout height={`${height}px`} onClose={handleClose}>
+    <WidgetLayout
+      height={`${height}px`}
+      onClose={handleClose}
+      SettingComponent={SiteLinkSetting}>
       <TabWrapper>
         <TabMenu className="notDraggable">
           {data.map((item, i) => (
@@ -58,7 +61,6 @@ const SiteLinkContainer = ({ height }: SiteLinkContainerProps) => {
           <SiteLinkTabContent linkList={showLinkList} />
         </TabContent>
       </TabWrapper>
-      <SiteLinkSetting />
     </WidgetLayout>
   );
 };

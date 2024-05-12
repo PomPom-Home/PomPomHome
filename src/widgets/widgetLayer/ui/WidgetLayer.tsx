@@ -84,6 +84,4 @@ export default WidgetLayer;
 const WidgetContainer = styled.div`
   width: 100vw;
   height: 100vh;
-
-  // margin-top: 35px; // WidgetLayout header 테스트용
 `;

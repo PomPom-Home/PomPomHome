@@ -6,24 +6,28 @@ import SettingIcon from '@assets/icon/settingIcon.svg?react'; // svg import 시 
 import Modal from '@shared/ui/Modal';
 import CloseButton from '@shared/ui/CloseButtonWithHover';
 
+export type SettingCommponsntProps = {
+  handleClose: () => void; // 환경설정 모달창 닫기 함수
+};
+
 type WidgetLayoutProps = {
-  children: React.ReactNode[]; // 자식 노드를 2개 가지며, 첫번째 노드는 위젯이 들어가며, 두번째 노드는 환경설정 내용이 됩니다.
+  children: React.ReactNode; // 위젯 내용
   height: string;
-  onClose: () => void;
-  hasSetting?: boolean;
+  onClose: () => void; // 위젯 닫기 함수
+  SettingComponent?: React.ComponentType<SettingCommponsntProps>;
 };
 
 const WidgetLayout = ({
   children,
   height,
   onClose,
-  hasSetting = true,
+  SettingComponent,
 }: WidgetLayoutProps) => {
   const [showSetting, setShowSetting] = useState<boolean>(false);
   const toggleSetting = () => {
     setShowSetting(prev => !prev);
   };
-
+  const hasSetting = !!SettingComponent; //SettingComponent 없으면 false, 있으면 true로 설정
   const [isHeaderTop, setIsHeaderTop] = useState<boolean>(true);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -36,15 +40,15 @@ const WidgetLayout = ({
 
   return (
     <Wrapper ref={wrapperRef} height={height}>
-      <Content>{children[0]}</Content>
+      <Content>{children}</Content>
       <Header top={isHeaderTop ? '-35px' : height} className="notDraggable">
         {hasSetting && <SettingButton onClick={toggleSetting} />}
         <CloseButton onClick={onClose} width="30px" height="30px" />
       </Header>
-      {showSetting && (
+      {hasSetting && showSetting && (
         <Modal onClose={toggleSetting}>
           <SettingLayout handleClose={toggleSetting}>
-            {children[1]}
+            <SettingComponent handleClose={toggleSetting} />
           </SettingLayout>
         </Modal>
       )}

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import SiteLinkContainer from './../../widgetList/siteLink/ui/SiteLinkContainer';
 import MemoContainer from '../../widgetList/memo/ui/MemoContainer';
+import TodoContainer from '../../widgetList/todo/ui/TodoContainer';
 import { useCallback } from 'react';
 import { cloneDeep } from 'lodash';
 
@@ -75,6 +76,11 @@ const WidgetLayer = () => {
         {visibleState.SITE_LINK.isVisible && (
           <div key={WIDGET_KEYS.SITE_LINK}>
             <SiteLinkContainer height={getHeight(WIDGET_KEYS.SITE_LINK)} />
+          </div>
+        )}
+        {visibleState.TODO.isVisible && (
+          <div key={WIDGET_KEYS.TODO}>
+            <TodoContainer height={getHeight(WIDGET_KEYS.TODO)} />
           </div>
         )}
       </ResponsiveGridLayout>

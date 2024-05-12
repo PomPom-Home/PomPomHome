@@ -102,6 +102,7 @@ const Content = styled.div`
   width: 100%;
   flex: 1;
   background-color: transparent;
+  overflow: scroll;
 
   &:hover + ${Header} {
     transform: translateY(0); // 호버 시 위치 이동

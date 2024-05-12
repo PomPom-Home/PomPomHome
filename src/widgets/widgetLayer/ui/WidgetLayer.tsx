@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import SiteLinkContainer from './../../widgetList/siteLink/ui/SiteLinkContainer';
 import MemoContainer from '../../widgetList/memo/ui/MemoContainer';
 import TodoContainer from '../../widgetList/todo/ui/TodoContainer';
+import MiniWebContainer from 'src/widgets/widgetList/miniWeb/ui/MiniWebContainer';
 import { useCallback } from 'react';
-
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import {
   useWidgetLayer,
@@ -77,6 +77,11 @@ const WidgetLayer = () => {
         {visibleState.TODO.isVisible && (
           <div key={WIDGET_KEYS.TODO}>
             <TodoContainer height={getHeight(WIDGET_KEYS.TODO)} />
+          </div>
+        )}
+        {visibleState.MINI_WEB.isVisible && (
+          <div key={WIDGET_KEYS.MINI_WEB}>
+            <MiniWebContainer height={getHeight(WIDGET_KEYS.MINI_WEB)} />
           </div>
         )}
       </ResponsiveGridLayout>

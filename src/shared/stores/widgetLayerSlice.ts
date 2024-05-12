@@ -18,7 +18,7 @@ export const WIDGET_KEYS = {
   SITE_LINK: 'siteLink',
   MEMO: 'memo',
   TODO: 'todo',
-  TODO: 'todo',
+  MINI_WEB: 'miniWeb',
 };
 
 type WidgetLayoutState = {
@@ -47,6 +47,7 @@ export const createWidgetLayoutSlice: StateCreator<
     SITE_LINK: { isVisible: true },
     MEMO: { isVisible: true },
     TODO: { isVisible: true },
+    MINI_WEB: { isVisible: true },
   },
   position: { breakpoints: '', layouts: {} },
   widgetLayerActions: {

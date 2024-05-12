@@ -1,31 +1,17 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import TodoList from './TodoList';
-import { TodoItemType } from '../model/TodoModel';
+import { useTodoStore } from '../../../../shared/stores/todoStore';
 
 const TodoApp = () => {
   const [newTodo, setNewTodo] = useState<string>('');
-  const [todos, setTodos] = useState<TodoItemType[]>([]);
-  const addTodo = () => {
+  const { todos, addTodo, deleteTodo, toggleComplete, editTodo } =
+    useTodoStore();
+  const handleAddTodo = () => {
     if (newTodo.trim()) {
-      setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }]);
+      addTodo(newTodo);
       setNewTodo('');
     }
-  };
-  const deleteTodo = (id: number): void => {
-    setTodos(todos.filter(todo => todo.id !== id));
-  };
-  const editTodo = (id: number, newText: string): void => {
-    setTodos(
-      todos.map(todo => (todo.id === id ? { ...todo, text: newText } : todo))
-    );
-  };
-  const toggleComplete = (id: number): void => {
-    setTodos(
-      todos.map(todo =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
   };
 
   return (
@@ -34,10 +20,10 @@ const TodoApp = () => {
         <TodoInput
           value={newTodo}
           onChange={e => setNewTodo(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && addTodo()}
+          //onKeyDown={e => e.key === 'Enter' && handleAddTodo()} fixme: Enter key event로 투두 추가하면 에러있어서 임시로 주석처리
           placeholder="What's next?"
         />
-        <CreateTodoButton className="notDraggable" onClick={addTodo}>
+        <CreateTodoButton className="notDraggable" onClick={handleAddTodo}>
           +
         </CreateTodoButton>
       </NewTodoInputWrappper>

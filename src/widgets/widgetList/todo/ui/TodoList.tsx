@@ -25,6 +25,7 @@ const TodoList: React.FC<TodoListProps> = ({
       />
       {isEditing ? (
         <Input
+          className="notDraggable"
           value={editText}
           onChange={e => setEditText(e.target.value)}
           onBlur={handleEdit}
@@ -33,7 +34,7 @@ const TodoList: React.FC<TodoListProps> = ({
         />
       ) : (
         <EditableText
-          className={todo.completed ? 'completed' : ''}
+          className={`${todo.completed ? 'completed' : ''} notDraggable`}
           onClick={() => setIsEditing(true)}>
           {todo.text}
         </EditableText>

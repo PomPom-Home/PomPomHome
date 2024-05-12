@@ -14,8 +14,6 @@ const TodoContainer = ({ height }: TodoContainerProps) => {
   return (
     <WidgetLayout height={`${height}px`} onClose={handleClose}>
       <TodoApp />
-      {/* 추후 수정 예정 */}
-      <div>tmp</div>
     </WidgetLayout>
   );
 };

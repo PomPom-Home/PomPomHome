@@ -1,18 +1,16 @@
 import styled from 'styled-components';
-import icon from '@assets/icon/favicon_sample.png';
-import type { SiteLinkItemType } from '../model/SiteLinkModel';
+import type { SiteLinkItemType } from '@shared/model';
+import { WIDGET_ICONS } from '@shared/ui/Icons';
 
 type SiteLinkItemProps = {
   linkInfo: SiteLinkItemType;
 };
 
-const SiteLinkItem: React.FC<SiteLinkItemProps> = ({ linkInfo }) => {
+const SiteLinkItem = ({ linkInfo }: SiteLinkItemProps) => {
   return (
     <LinkWrapper className="notDraggable">
       <a href={linkInfo.linkURL}></a>
-      <LinkFavicon>
-        <img src={icon} />
-      </LinkFavicon>
+      <LinkFavicon>{WIDGET_ICONS['SITE_LINK']}</LinkFavicon>
       <LinkTitle>{linkInfo.linkTitle}</LinkTitle>
     </LinkWrapper>
   );
@@ -21,8 +19,6 @@ const SiteLinkItem: React.FC<SiteLinkItemProps> = ({ linkInfo }) => {
 export default SiteLinkItem;
 
 const LinkWrapper = styled.div`
-  // background-color: red;
-
   margin: 2px;
   width: 100px;
   height: 100px;

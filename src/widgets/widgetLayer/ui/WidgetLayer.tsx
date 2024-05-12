@@ -3,14 +3,13 @@ import SiteLinkContainer from './../../widgetList/siteLink/ui/SiteLinkContainer'
 import MemoContainer from '../../widgetList/memo/ui/MemoContainer';
 import TodoContainer from '../../widgetList/todo/ui/TodoContainer';
 import { useCallback } from 'react';
-import { cloneDeep } from 'lodash';
 
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import {
   useWidgetLayer,
   useWidgetLayerAction,
 } from '@shared/stores/backgroundWidgetLayerStore';
-import { WIDGET_KEYS } from '@shared/stores/widgetLayerSlice';
+import { WIDGET_KEYS } from '@shared/model';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -24,11 +23,11 @@ const WidgetLayer = () => {
     updateWidgetPosition({ ...position, breakpoints: breakpoint });
   };
 
-  const handleLayoutChange = (
-    _: ReactGridLayout.Layout[],
-    layouts: ReactGridLayout.Layouts
-  ) => {
-    updateWidgetPosition({ ...position, layouts: cloneDeep(layouts) });
+  const handleResizeEnd = (layout: ReactGridLayout.Layout[]) => {
+    updateWidgetPosition({
+      ...position,
+      layouts: { ...position.layouts, [position.breakpoints]: layout },
+    });
   };
 
   const handleDragStop = (layout: ReactGridLayout.Layout[]) => {
@@ -43,7 +42,7 @@ const WidgetLayer = () => {
       return (
         ROW_HEIGHT *
         position.layouts[position.breakpoints]?.filter(({ i }) => i === key)[0]
-          .h
+          ?.h
       );
     },
     [position.breakpoints, position.layouts]
@@ -54,6 +53,7 @@ const WidgetLayer = () => {
       <ResponsiveGridLayout
         style={{ height: '100%' }}
         className="layout"
+        onResizeStop={handleResizeEnd}
         layouts={{ ...position.layouts }}
         breakpoints={{ lg: 1200, md: 996, sm: 768 }}
         cols={{ lg: 12, md: 10, sm: 6 }}
@@ -63,11 +63,7 @@ const WidgetLayer = () => {
         allowOverlap
         width={1200}
         onBreakpointChange={handleBreakPointChange}
-        onDragStop={handleDragStop}
-        onLayoutChange={handleLayoutChange}>
-        {/* FIXME: 임시로 item A 및 B 추가. 향후 위젯 추가시 삭제 요망*/}
-        <div key="a">Item A</div>
-        <div key="b">Item B</div>
+        onDragStop={handleDragStop}>
         {visibleState.MEMO.isVisible && (
           <div key={WIDGET_KEYS.MEMO}>
             <MemoContainer height={getHeight(WIDGET_KEYS.MEMO)} />
@@ -94,6 +90,4 @@ export default WidgetLayer;
 const WidgetContainer = styled.div`
   width: 100vw;
   height: 100vh;
-
-  // margin-top: 35px; // WidgetLayout header 테스트용
 `;

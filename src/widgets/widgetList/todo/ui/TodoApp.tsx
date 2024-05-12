@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import TodoList from './TodoList';
 import { useTodoStore } from '../../../../shared/stores/todoStore';
+import { CiSquarePlus } from 'react-icons/ci';
 
 const TodoApp = () => {
   const [newTodo, setNewTodo] = useState<string>('');
@@ -24,7 +25,7 @@ const TodoApp = () => {
           placeholder="What's next?"
         />
         <CreateTodoButton className="notDraggable" onClick={handleAddTodo}>
-          +
+          <CiSquarePlus size="35px" />
         </CreateTodoButton>
       </NewTodoInputWrappper>
       <TodoListWrapper>
@@ -57,14 +58,13 @@ const TodoInput = styled.input`
   border-radius: 5px;
   color: black;
   padding: 5px;
-  margin-right: 10px;
   outline: none;
   width: 100%;
-  height: 30px;
   font-size: 14px;
 `;
 
 const CreateTodoButton = styled.div`
+  display: flex;
   background: none;
   border: none;
   color: white;

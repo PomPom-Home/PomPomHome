@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { TodoListProps } from '../model/TodoModel';
+import { IoClose } from 'react-icons/io5';
 
 const TodoList: React.FC<TodoListProps> = ({
   todo,
@@ -40,7 +41,7 @@ const TodoList: React.FC<TodoListProps> = ({
         </EditableText>
       )}
       <Button className="notDraggable" onClick={() => onDelete(todo.id)}>
-        ×
+        <IoClose size="19px" />
       </Button>
     </ListItem>
   );
@@ -71,6 +72,7 @@ const EditableText = styled.span`
   }
 `;
 const Button = styled.div`
+  margin-right: 3px;
   background: none;
   border: none;
   color: white;

@@ -1,6 +1,7 @@
 export const WIDGET_KEYS = {
   SITE_LINK: 'siteLink',
   MEMO: 'memo',
+  SEARCH_BOX: 'searchBox',
 };
 
 export type SiteLinkItemType = {

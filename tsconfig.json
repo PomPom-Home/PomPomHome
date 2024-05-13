@@ -25,7 +25,8 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["src/assets/*"],
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@widgetList/*": ["src/widgets/widgetList/*"]
     }
   },
   "include": ["src", "setupTests.ts", "svg.d.ts"],

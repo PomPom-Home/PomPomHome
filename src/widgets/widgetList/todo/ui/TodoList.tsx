@@ -82,7 +82,6 @@ const Button = styled.div`
 const Input = styled.input`
   background: none;
   border: 1px solid white;
-  //border: none;
   border-radius: 5px;
   color: black;
   padding: 5px;

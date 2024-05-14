@@ -41,6 +41,7 @@ export const createWidgetLayoutSlice: StateCreator<
     SITE_LINK: { isVisible: true },
     MEMO: { isVisible: true },
     TODO: { isVisible: true },
+    SEARCH_BOX: { isVisible: true },
   },
   position: { breakpoints: '', layouts: {} },
   widgetLayerActions: {

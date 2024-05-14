@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-import SiteLinkContainer from './../../widgetList/siteLink/ui/SiteLinkContainer';
-import MemoContainer from '../../widgetList/memo/ui/MemoContainer';
-import TodoContainer from '../../widgetList/todo/ui/TodoContainer';
 import { useCallback } from 'react';
-
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import {
   useWidgetLayer,
   useWidgetLayerAction,
 } from '@shared/stores/backgroundWidgetLayerStore';
+import MemoContainer from '@widgetList/memo/ui/MemoContainer';
+import SiteLinkContainer from '@widgetList/siteLink/ui/SiteLinkContainer';
+import TodoContainer from '@widgetList/todo/ui/TodoContainer';
+import SearchBoxContainer from '@widgetList/searchBox/ui/SearchBoxContainer';
 import { WIDGET_KEYS } from '@shared/model';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-
 const ROW_HEIGHT = 100;
 
 const WidgetLayer = () => {
@@ -77,6 +76,11 @@ const WidgetLayer = () => {
         {visibleState.TODO.isVisible && (
           <div key={WIDGET_KEYS.TODO}>
             <TodoContainer height={getHeight(WIDGET_KEYS.TODO)} />
+          </div>
+        )}
+        {visibleState.SEARCH_BOX.isVisible && (
+          <div key={WIDGET_KEYS.SEARCH_BOX}>
+            <SearchBoxContainer height={getHeight(WIDGET_KEYS.SEARCH_BOX)} />
           </div>
         )}
       </ResponsiveGridLayout>

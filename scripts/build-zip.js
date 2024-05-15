@@ -32,8 +32,8 @@ function buildZip(src, dist, zipFilename) {
   });
 }
 
-const { name, version } = extractExtensionData();
-const zipFilename = `${name}-v${version}.zip`;
+const { name } = extractExtensionData();
+const zipFilename = `${name}.zip`;
 
 if (!fs.existsSync(DEST_ZIP_DIR)) fs.mkdirSync(DEST_ZIP_DIR);
 

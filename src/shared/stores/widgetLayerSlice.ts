@@ -1,5 +1,6 @@
 import { StateCreator } from 'zustand';
 import { BoundSlice } from './backgroundWidgetLayerStore';
+import { WIDGET_KEYS } from '@shared/model';
 
 type Layout = {
   i: string;
@@ -12,13 +13,6 @@ type Layout = {
 type Position = {
   breakpoints: string;
   layouts: { [key: string]: Layout[] };
-};
-
-export const WIDGET_KEYS = {
-  SITE_LINK: 'siteLink',
-  MEMO: 'memo',
-  TODO: 'todo',
-  MINI_WEB: 'miniWeb',
 };
 
 type WidgetLayoutState = {
@@ -48,6 +42,7 @@ export const createWidgetLayoutSlice: StateCreator<
     MEMO: { isVisible: true },
     TODO: { isVisible: true },
     MINI_WEB: { isVisible: true },
+    SEARCH_BOX: { isVisible: true },
   },
   position: { breakpoints: '', layouts: {} },
   widgetLayerActions: {

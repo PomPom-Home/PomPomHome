@@ -3,6 +3,7 @@ export const WIDGET_KEYS = {
   MEMO: 'memo',
   TODO: 'todo',
   MINI_WEB: 'miniWeb',
+  SEARCH_BOX: 'searchBox',
 };
 
 export type SiteLinkItemType = {

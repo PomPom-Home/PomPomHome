@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import SiteLinkContainer from './../../widgetList/siteLink/ui/SiteLinkContainer';
-import MemoContainer from '../../widgetList/memo/ui/MemoContainer';
-import TodoContainer from '../../widgetList/todo/ui/TodoContainer';
-import MiniWebContainer from 'src/widgets/widgetList/miniWeb/ui/MiniWebContainer';
 import { useCallback } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import {
   useWidgetLayer,
   useWidgetLayerAction,
 } from '@shared/stores/backgroundWidgetLayerStore';
+import MemoContainer from '@widgetList/memo/ui/MemoContainer';
+import SiteLinkContainer from '@widgetList/siteLink/ui/SiteLinkContainer';
+import TodoContainer from '@widgetList/todo/ui/TodoContainer';
+import SearchBoxContainer from '@widgetList/searchBox/ui/SearchBoxContainer';
+import MiniWebContainer from '@widgetList/miniWeb/ui/MiniWebContainer';
 import { WIDGET_KEYS } from '@shared/model';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-
 const ROW_HEIGHT = 100;
 
 const WidgetLayer = () => {
@@ -82,6 +82,11 @@ const WidgetLayer = () => {
         {visibleState.MINI_WEB.isVisible && (
           <div key={WIDGET_KEYS.MINI_WEB}>
             <MiniWebContainer height={getHeight(WIDGET_KEYS.MINI_WEB)} />
+          </div>
+        )}
+        {visibleState.SEARCH_BOX.isVisible && (
+          <div key={WIDGET_KEYS.SEARCH_BOX}>
+            <SearchBoxContainer height={getHeight(WIDGET_KEYS.SEARCH_BOX)} />
           </div>
         )}
       </ResponsiveGridLayout>

@@ -2,6 +2,7 @@ export const WIDGET_KEYS = {
   SITE_LINK: 'siteLink',
   MEMO: 'memo',
   TODO: 'todo',
+  MINI_WEB: 'miniWeb',
   SEARCH_BOX: 'searchBox',
 };
 

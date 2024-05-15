@@ -22,7 +22,7 @@ const TodoApp = () => {
           value={newTodo}
           onChange={e => setNewTodo(e.target.value)}
           //onKeyDown={e => e.key === 'Enter' && handleAddTodo()} fixme: Enter key event로 투두 추가하면 에러있어서 임시로 주석처리
-          placeholder="What's next?"
+          placeholder="Plan your day..."
         />
         <CreateTodoButton className="notDraggable" onClick={handleAddTodo}>
           <CiSquarePlus size="35px" />

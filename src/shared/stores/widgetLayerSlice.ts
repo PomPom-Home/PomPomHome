@@ -41,6 +41,7 @@ export const createWidgetLayoutSlice: StateCreator<
     SITE_LINK: { isVisible: true },
     MEMO: { isVisible: true },
     TODO: { isVisible: true },
+    MINI_WEB: { isVisible: true },
     SEARCH_BOX: { isVisible: true },
   },
   position: { breakpoints: '', layouts: {} },

@@ -9,6 +9,7 @@ import MemoContainer from '@widgetList/memo/ui/MemoContainer';
 import SiteLinkContainer from '@widgetList/siteLink/ui/SiteLinkContainer';
 import TodoContainer from '@widgetList/todo/ui/TodoContainer';
 import SearchBoxContainer from '@widgetList/searchBox/ui/SearchBoxContainer';
+import MiniWebContainer from '@widgetList/miniWeb/ui/MiniWebContainer';
 import { WIDGET_KEYS } from '@shared/model';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -76,6 +77,11 @@ const WidgetLayer = () => {
         {visibleState.TODO.isVisible && (
           <div key={WIDGET_KEYS.TODO}>
             <TodoContainer height={getHeight(WIDGET_KEYS.TODO)} />
+          </div>
+        )}
+        {visibleState.MINI_WEB.isVisible && (
+          <div key={WIDGET_KEYS.MINI_WEB}>
+            <MiniWebContainer height={getHeight(WIDGET_KEYS.MINI_WEB)} />
           </div>
         )}
         {visibleState.SEARCH_BOX.isVisible && (

@@ -57,5 +57,4 @@ export const useMemoContent = () => useBoundStore(state => state.memo);
 export const useMemoActions = () =>
   useBoundStore(state => ({
     setMemo: state.setMemo,
-    clearMemo: state.clearMemo,
   }));
